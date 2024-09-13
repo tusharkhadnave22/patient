@@ -1,0 +1,106 @@
+
+
+class Patient {
+    String firstName
+    String lastName
+    Date dateOfBirth
+    String sex
+    String email
+    String ssn
+    Date createdAt
+    Date updatedAt
+    Team team
+    Attendant attendant
+    static belongsTo=[attendant: Attendant]
+    static hasOne = [team: Team]
+    static constraints = {
+        firstName blank: false
+        lastName blank: false
+        dateOfBirth nullable: true
+        sex inList: ["Male", "Female", "Other"]
+        email email: true, unique: true
+        ssn nullable: false, blank: false, unique: true
+        attendant nullable: true
+        createdAt nullable:false
+        updatedAt nullable:false
+        team nullable: false
+        attendant nullable: false
+    }
+//    static mapping = {
+//        dateOfBirth type: 'date'
+//        createdAt defaultValue: new Date()
+//        updatedAt defaultValue: new Date()
+//
+//    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+class Team {
+
+    String name;
+    Integer size;
+    Date created_at;
+    Date updated_at;
+
+    static hasMany = [attendants: Attendant, patients: Patient]
+
+    static constraints = {
+        name nullable:false, blank:false
+        size nullable:false, min:1
+        created_at nullable:false
+        updated_at nullable:false
+    }
+
+//    static mapping = {
+//        created_at defaultValue: new Date()
+//        updated_at defaultValue: new Date()
+//    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Attendant {
+    String name;
+    Date created_at;
+    Date updated_at;
+    //static hasOne = [patient: Patient]
+    static belongsTo = [team: Team]
+    static constraints = {
+        name nullable:false, blank:false
+        team nullable:true
+        created_at nullable:false
+        updated_at nullable:false
+    }
+
+//    static mapping = {
+//        created_at defaultValue: new Date()
+//        updated_at defaultValue: new Date()
+//    }
+}
+
+
+
