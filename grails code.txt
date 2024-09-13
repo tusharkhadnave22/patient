@@ -103,4 +103,53 @@ class Attendant {
 }
 
 
+def save() {
+        def json = request.JSON
+        def patient = new Patient(json)
+        if (patient.save(flush: true))  {
+                render(status: 201, text: "Patient data saved successfully")
+            }
+            else
+            {
+                render(status: 400, text: "Failed to save patient data")
+            }
+        }
+    }
+
+
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "1990-05-15",
+  "sex": "Male",
+  "email": "john.doe@example.com",
+  "ssn": "123-45-6789",
+  "createdAt": "2024-09-13T08:00:00Z",
+  "updatedAt": "2024-09-13T08:00:00Z",
+  "team": {
+    "name": "Development",
+    "size": 10,
+    "created_at": "2024-01-01T09:00:00Z",
+    "updated_at": "2024-09-13T08:00:00Z"
+  },
+  "attendant": {
+    "name": "Jane Smith",
+    "created_at": "2024-01-01T09:00:00Z",
+    "updated_at": "2024-09-13T08:00:00Z"
+  }
+}
+
+
+
+    runtimeOnly("mysql:mysql-connector-java:8.0.33")
+
+
+    pooled: true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/patientdb?useSSL=false&serverTimezone=UTC
+    dbCreate: update
 
